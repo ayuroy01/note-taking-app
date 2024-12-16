@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ayushman's Note-Taking-Application</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Ayushman's Note-Taking-Application</h1>
+  <div>
+    <h2>Create a New Note</h2>
+    <form id="create-note-form">
+      <input type="text" id="title-input" placeholder="Title" required>
+      <textarea id="content-input" placeholder="Content" required></textarea>
+      <button type="submit">Create Note</button>
+    </form>
+  </div>
+  <div>
+    <h2>Notes</h2>
+    <ul id="note-list"></ul>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

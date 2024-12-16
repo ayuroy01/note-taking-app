@@ -1,0 +1,46 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #000;
+    color: #0f0;
+    margin: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #000;
+    color: #0f0;
+    border: 1px solid #0f0;
+    font-family: 'Roboto Mono', monospace;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #0f0;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-family: 'Roboto Mono', monospace;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #000;
+    border: 1px solid #0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
