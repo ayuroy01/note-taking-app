@@ -8,6 +8,8 @@
   },
   "keywords": [],
   "description": "Cyber Notes: A Cyberpunk Note-Taking OS",
+  "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.3.1",
     "express": "^4.21.2",
     "mongoose": "^8.8.4"
