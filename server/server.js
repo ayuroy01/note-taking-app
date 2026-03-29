@@ -1,13 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 
+// Import routes
+const noteRoutes = require('./noteRoutes');
+
 // To create express app
 const app = express();
 
 // MongoDB Atlas connection
-mongoose.connect('mongodb+srv://ayr7217:WxSxhDcUW7hIb2jL@cluster0.ovroj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
   })
@@ -15,16 +19,9 @@ mongoose.connect('mongodb+srv://ayr7217:WxSxhDcUW7hIb2jL@cluster0.ovroj.mongodb.
     console.error('MongoDB connection error:', error);
   });
 
-// Schema for notes
-const noteSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-});
-
-const Note = mongoose.model('Note', noteSchema);
-
-// Middleware for JSON request bodies
-app.use(express.json());
+// Middleware for JSON request bodies with larger payload capability for Audio buffers
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Serve static files from the client directory
 app.use(express.static(path.join(__dirname, '../client')));
@@ -33,53 +30,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use(cors());
 
 // API routes
-app.get('/api/notes', async (req, res) => {
-  try {
-    const notes = await Note.find();
-    res.json(notes);
-  } catch (error) {
-    console.error('Error fetching notes:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.post('/api/notes', async (req, res) => {
-  try {
-    const note = new Note(req.body);
-    await note.save();
-    res.status(201).json(note);
-  } catch (error) {
-    console.error('Error creating note:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Handling note updates
-app.put('/api/notes/:id', async (req, res) => {
-  try {
-    const note = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!note) {
-      return res.status(404).json({ error: 'Note not found' });
-    }
-    res.json(note);
-  } catch (error) {
-    console.error('Error updating note:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-app.delete('/api/notes/:id', async (req, res) => {
-  try {
-    const note = await Note.findByIdAndDelete(req.params.id);
-    if (!note) {
-      return res.status(404).json({ error: 'Note not found' });
-    }
-    res.sendStatus(204);
-  } catch (error) {
-    console.error('Error deleting note:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+app.use('/api/notes', noteRoutes);
 
 // Start the server
 const port = process.env.PORT || 3000;

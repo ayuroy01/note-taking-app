@@ -1,24 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Ayushman's Note-Taking-Application</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER-NOTES OS v1.0</title>
+  
+  <!-- Cyberpunk Fonts: Orbitron for headers, Share Tech Mono for code/text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math Notes -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <h1>Ayushman's Note-Taking-Application</h1>
-  <div>
-    <h2>Create a New Note</h2>
-    <form id="create-note-form">
-      <input type="text" id="title-input" placeholder="Title" required>
-      <textarea id="content-input" placeholder="Content" required></textarea>
-      <button type="submit">Create Note</button>
-    </form>
+<body class="cyber-theme">
+
+  <div class="crt-overlay"></div>
+  <div class="scanlines"></div>
+
+  <div class="terminal-window">
+    
+    <!-- Sidebar / System Nav -->
+    <aside class="sidebar neon-border-right">
+      <div class="top-nav">
+        <h1 class="glitch-text" data-text="CYBER_OS">CYBER_OS</h1>
+        <div class="view-toggles">
+          <button id="view-list-btn" class="cyber-btn active" title="List View">[ LIST ]</button>
+          <button id="view-board-btn" class="cyber-btn" title="Board View">[ BOARD ]</button>
+        </div>
+      </div>
+      
+      <div class="note-type-toggles">
+        <button id="new-text-btn" class="neon-btn">[+ TEXT]</button>
+        <button id="new-voice-btn" class="neon-btn">[+ VOICE]</button>
+        <button id="new-math-btn" class="neon-btn">[+ MATH]</button>
+        <button id="new-sticky-btn" class="neon-btn">[+ STICKY]</button>
+      </div>
+
+      <div class="sidebar-content">
+        <div id="loading-indicator" class="blink">[ SYSTEM LOADING ]</div>
+        <ul id="note-list" class="note-list">
+          <!-- Notes injected here -->
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Editor Pane -->
+    <main class="editor-pane" id="editor-container">
+      <div class="editor-header neon-border-bottom">
+        <div class="header-status">
+          <span class="status-indicator"></span> 
+          <span id="note-type-label">TYPE: TEXT_NODE</span>
+        </div>
+        <div class="header-actions">
+          <button id="delete-note-btn" class="cyber-btn danger" style="display: none;">[ PURGE ]</button>
+          <button id="save-note-btn" class="cyber-btn success">[ UPLOAD ]</button>
+        </div>
+      </div>
+
+      <div class="editor-body">
+        <div class="meta-data">
+          TIMESTAMP: <span id="date-stamp">00:00:00 00.00.0000</span>
+        </div>
+        
+        <input type="text" id="title-input" class="cyber-input title" placeholder="FILE_NAME_UNKNOWN" autocomplete="off">
+        
+        <!-- Standard content editor -->
+        <textarea id="content-input" class="cyber-input content" placeholder="AWAITING SYSTEM INPUT..."></textarea>
+        
+        <!-- Math display container -->
+        <div id="math-display" class="math-viewer" style="display: none;"></div>
+
+        <!-- Voice recorder container -->
+        <div id="voice-interface" class="voice-module neon-border" style="display: none;">
+          <h3 class="voice-title">AUDIO_CAPTURE_HUB</h3>
+          <div class="voice-controls">
+            <button id="record-btn" class="cyber-btn pulse">[ REC ]</button>
+            <button id="stop-btn" class="cyber-btn" disabled>[ STOP ]</button>
+            <span id="recording-status" class="blink" style="display:none; color: #ff0055;">RECORDING IN PROGRESS...</span>
+          </div>
+          <audio id="audio-playback" controls style="display: none;"></audio>
+        </div>
+      </div>
+    </main>
+
+    <!-- Board View (Sticky Notes) hidden by default -->
+    <main class="board-pane" id="board-container" style="display: none;">
+      <div class="grid-background"></div>
+      <div id="board-canvas" class="board-canvas">
+        <!-- Sticky notes generated here -->
+      </div>
+    </main>
+
   </div>
-  <div>
-    <h2>Notes</h2>
-    <ul id="note-list"></ul>
-  </div>
+
+  <div id="toast-container" class="cyber-toast-container"></div>
+
   <script src="app.js"></script>
 </body>
 </html>
