@@ -1,5 +1,5 @@
 {
-  "name": "note-taking-app",
+  "name": "cyber-notes",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,11 +7,7 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "note-taking-app with a RESTful API",
-  "dependencies": {
-    "cors": "^2.8.5",
+  "description": "Cyber Notes: A Cyberpunk Note-Taking OS",
     "dotenv": "^17.3.1",
     "express": "^4.21.2",
     "mongoose": "^8.8.4"
